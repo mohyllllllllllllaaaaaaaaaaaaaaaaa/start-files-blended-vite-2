@@ -18,20 +18,24 @@ const Photos = () => {
   const[isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const abortControler = new  AbortController();
     if(!query){
       return}
-    
-
     const fetchItems = async() => {
 setLoader(true)
+
 try{
-  const {photos, per_page, total_results} = await getPhotos(query, page)
+  const {photos, per_page, total_results} = await getPhotos(query, page, abortControler.signal)
   if(!photos.length){
     return setIsEmpty(true);
   }
   setImages((prevImages) => [ ...prevImages, ...photos ])
   setIsVisible(page < Math.ceil(total_results / per_page))
 }catch(error){
+  if (error.name === 'CanceledError' || error.code === 'ERR_CANCELED') {
+    console.log('Запит скасовано');
+    return;
+  }
   setError(error)
 
 }finally{
@@ -39,7 +43,10 @@ try{
 }
 
     }
-    fetchItems()
+    fetchItems();
+    return () => {
+      abortControler.abort();
+    };
   },[page, query])
 
   const onHandelSubmit = value =>{
