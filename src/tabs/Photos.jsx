@@ -5,7 +5,7 @@ import {getPhotos} from '../apiService/photos.js';
 import Loader from '../components/Loader/Loader'
 import PhotosGallery from '../components/PhotosGallery/PhotosGallery';
 import Button from '../components/Button/Button.jsx';
-
+import { ImageModal } from '../components/imageModal/imageModal.jsx';
 
 
 const Photos = () => {
@@ -16,6 +16,11 @@ const Photos = () => {
   const[error, setError] = useState(null);
   const[isEmpty, setIsEmpty] = useState(false);
   const[isVisible, setIsVisible] = useState(false);
+  const[modalIsOpen, setModalIsOpen] = useState(false);
+  const[modalSrc, setModalSrc] = useState('');
+  const[modalAlt, setModalAlt] = useState('');
+
+
 
   useEffect(() => {
     const abortControler = new  AbortController();
@@ -60,6 +65,17 @@ try{
   const loadMore = () =>{
     setPage(prevPage => prevPage + 1 )
   }
+const closeModal = () =>{
+  setModalIsOpen(false)
+  setModalSrc('')
+  setModalAlt('')
+}
+const openModal = (src, alt) =>{
+  setModalIsOpen(true)
+  setModalSrc(src)
+  setModalAlt(alt)
+}
+
   return (
     <>
       <Text textAlign="center">Let`s begin search 🔎</Text>
@@ -67,9 +83,10 @@ try{
       {!error && !isEmpty && !images.length && <Text textAlign='center'>Start search!</Text>}
       {loader && <Loader/> }
       {error && <Text textAlign='center'>Something went wrong!</Text>}
-      {images.length > 0 && <PhotosGallery images={images}/>}
+      {images.length > 0 && <PhotosGallery images={images} openModal={openModal}/>}
       {isVisible && images.length > 0 &&  <Button onClick= {loadMore} disabled={loader}> {loader ? "Loading..." : "Load more"}  </Button>}
       {isEmpty && ( <Text textAlign='center'>Dont found images!</Text>)}
+      <ImageModal modalIsOpen={modalIsOpen} closeModal={closeModal} src={modalSrc} alt={modalAlt}/>
     </>
   );
 };
