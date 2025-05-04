@@ -20,11 +20,11 @@ const handleEditTodo = (event) => {
   return (
     <form className={style.form} onSubmit={handleEditTodo}>
   <button className={style.submitButton} type="submit" >
-    <RiSaveLine color="green" size="16px" />
+    <RiSaveLine color="green" size="24px" />
   </button>
 
   <button className={style.editButton} type="button" onClick={cancelUpdate}>
-    <MdOutlineCancel color="red" size="16px" />
+    <MdOutlineCancel color="red" size="24px" />
   </button>
 
   <input

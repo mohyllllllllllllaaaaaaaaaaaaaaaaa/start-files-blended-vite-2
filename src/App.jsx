@@ -5,14 +5,15 @@ import Container from './components/Container/Container';
 import Todos from './tabs/Todos';
 import Photos from './tabs/Photos';
 
+
 export const App = () => {
   return (
     <Section>
       <Container>
         <Tabs>
           <TabList>
-            <Tab>Todos</Tab>
-            <Tab>Photos</Tab>
+            <Tab>Todos  ✔️</Tab>
+            <Tab>Photos  📸</Tab>
           </TabList>
 
           <TabPanel>

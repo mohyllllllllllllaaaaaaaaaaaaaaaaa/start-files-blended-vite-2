@@ -19,7 +19,7 @@ setQuery('')
 return (
 <form className={style.form} onSubmit={handelSubmit}>
   <button className={style.button} type="submit" >
-    <FiSearch size="16px" />
+  <FiSearch size="16px" />
   </button>
 
   <input
