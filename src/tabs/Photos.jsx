@@ -5,7 +5,7 @@ import {getPhotos} from '../apiService/photos.js';
 import Loader from '../components/Loader/Loader'
 import PhotosGallery from '../components/PhotosGallery/PhotosGallery';
 import Button from '../components/Button/Button.jsx';
-import { ImageModal } from '../components/imageModal/imageModal.jsx';
+import { ImageModal } from '../components/ImageModal/ImageModal.jsx';
 
 
 const Photos = () => {
